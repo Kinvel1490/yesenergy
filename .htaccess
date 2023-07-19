@@ -5,13 +5,14 @@ RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !(.*)/$
-RewriteRule ^add(/?)+$ add.php?url=add [L]
+RewriteRule ^add(/?)+$ add.php [L]
 RewriteRule ^opt(/?)+$ opt.php?url=opt [L]
 RewriteRule ^contact(/?)+$ contact.php?url=contact [L]
-RewriteRule ^news(/?)+$ news.php?url=news [L]
+RewriteRule ^news(/?)+$ news.php [L]
 RewriteRule ^reviews(/?)+$ otzivi.php?url=otzivi [L] 
 RewriteRule ^ynews/([^/]*)(/?)+$ news_full.php?url=opennews&id=$1 [L] 
 RewriteRule ^newsort/([^/]*)(/?)+$ news.php?url=news&id=$1 [L]
+RewriteRule ^vklogin(/?)+$ OAuth/vkLogin.php [L]
 </IfModule>
 
 

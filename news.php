@@ -209,7 +209,7 @@ if($poisk['count'] > '0') {
 
 if($poisk['count'] > '0') {
 
-		$out.= '<td class="calendar-day ' . $class . '"><a href="/news.php/?id=' . $day.'-'.$month.'-'.$year.'">' . $day . '</a></td>';
+		$out.= '<td class="calendar-day ' . $class . '"><a href="/news?id=' . $day.'-'.$month.'-'.$year.'">' . $day . '</a></td>';
 	
 } else {
 		$out.= '<td class="calendar-day ' . $class . '">' . $day . '</td>';

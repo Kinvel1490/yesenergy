@@ -1,10 +1,12 @@
 <?php 
 require ($_SERVER['DOCUMENT_ROOT']."/conecter/dbsend.php"); // БД 
+require ($_SERVER['DOCUMENT_ROOT'].'/OAuth/vkLogin.php');
+require ($_SERVER['DOCUMENT_ROOT'].'/OAuth/okLogin.php');
  $ot = 0;
 
 if(isset($_POST['names'])) {
 	$data = cod_date(date('d-m-YH:i:s')); 
-	$db->query( "INSERT INTO otzivi (name,kak,data,text,star) VALUES ('".$_POST['names']."','".$_POST['who']."','$data','".$_POST['text']."','".$_POST['star']."')" ); 
+	$db->query( "INSERT INTO otzivi (name,kak,data,text,star,stat) VALUES ('".$_POST['names']."','".$_POST['who']."','$data','".$_POST['text']."','".$_POST['star']."',0)" ); 
  $ot = 1;
 }
 ?>
@@ -65,11 +67,6 @@ margin-top: -10px !important;
  
 <main>  <br><br>
 <section class="optovik"><div class="wrapper"> 
-
-  <?php if($t['text']) {
-	 echo "<div style='color:#fff; margin-bottom: 15px;'>".$t['text']."</div>";
-
- }	 ?>
  
 <div class="addot">
 <?php if($ot == 0) { ?>
@@ -77,14 +74,10 @@ margin-top: -10px !important;
 
 
 <?php
-
-
-                    $s = file_get_contents('http://ulogin.ru/token.php?token=' . $_POST['token'] . '&host=' . $_SERVER['HTTP_HOST']);
-                    $user = json_decode($s, true);
-             if(isset($user['network'])) {
+	if(isset($uname)) {		                  
                 echo "
 				<div class=\"iname\">Ваше имя, город</div>
-<input type=\"text\" class=\"inpa\" name=\"names\" value=\"".$user['first_name']."\" required> 
+<input type=\"text\" class=\"inpa\" name=\"names\" value=\"".$uname.", ".$ucity."\" required> 
 
 <div class=\"iname\">Оцените продукцию</div>
 <select class=\"inpa\" name=\"star\" required> 
@@ -99,17 +92,31 @@ margin-top: -10px !important;
 <br><br>
 
 				
-				<div class='loadver'><input type='hidden' name='who' value='".$user['network']." : ".$user['identity']." -". $user['first_name'].", ".$user['last_name']."'>
+				<div class='loadver'><input type='hidden' name='who' value='".$uname." ".$uLName." -".$user_id."'>
 				<input type='submit' value='Оставить отзыв' class='adbuto'></div>";
-			 }
+	echo '
+	<script>
+		history.pushState(null, null, "http://localhost/add")
+	</script>
+	';
+	}
+
  
  ?>
 </form>
 <?php 
-          if(!isset($user['network'])) { ?>
+          if(!isset($uname)) { ?>
 		  <div class="iname">Чтобы оставить отзыв, авторизуйтесь: </div>
-<script src="//ulogin.ru/js/ulogin.js"></script>
-		  <div id="uLogin" data-ulogin="display=panel;theme=classic;fields=first_name,last_name;providers=vkontakte,odnoklassniki,mailru,facebook;hidden=other;redirect_uri=http%3A%2F%2Fyesenergy.ru%2Fadd;mobilebuttons=0;"></div> <br> <?php } 
+		  <?php 
+		?>
+		  <div id="soc_auth">
+			<div class="vklogin">
+				<img src="/img/VKLogoWhite.svg" alt="ВКонтакте">
+			</div>
+			<div class="oklogin">
+				<img src="/img/apiok_logo.png" alt="Одноклассники">
+		  	</div>
+		  </div> <?php } 
 		  
 		  } else {
 			echo '  <div class="iname" style="text-align:center;">Спасибо за отзыв! Мы его обязательно опубликуем.</div>';  

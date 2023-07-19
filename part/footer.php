@@ -52,6 +52,9 @@ echo $t['podp'];
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
 <script src="/js/heighter.js"></script>
+<?php if($_SERVER['REQUEST_URI'] == '/add') {
+  echo '<script src="/js/auth.js"></script>';
+} ?>
 <script> 
 var l = l => console.log(l);
   const wrapp = document.getElementById('fon');

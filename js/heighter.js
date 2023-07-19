@@ -5,14 +5,16 @@ d = d=>document.querySelector(d);
 
 window.addEventListener('DOMContentLoaded', ()=>{
     var l = l => console.log(l);
+    setHeader();
     setWidhtAndHeight();
     window.addEventListener('resize', ()=>{
+        setHeader();
         setWidhtAndHeight();
     });
     callParalax();
 });
 
-function setWidhtAndHeight () {
+function setHeader () {
     h = window.innerHeight;
     w = window.innerWidth;
     if(d('.bg-wrapper')) {
@@ -24,6 +26,10 @@ function setWidhtAndHeight () {
             $('.bg-wrapper').css('width', '100%');
         }
     }
+}
+
+function setWidhtAndHeight () {
+
     if (d('.product') && d('.pic') && d('.about')) {
         $('.product').css('min-height', d('.pic').clientHeight*.85);
     }
@@ -33,7 +39,7 @@ function setWidhtAndHeight () {
     } else if (d('.girl') && $('.girl').css('display') == "none" && d('.iceberg').clientHeight > 0) {
         mt = d('.iceberg').clientHeight;
         $('.otz>.wrapper').css('margin-top', mt)
-    } else if (d('.cloud')){
+    } else if (d('.cloud')) {
     mt = d('.cloud').clientHeight*.7;
     $('.otz>.wrapper').css('margin-top', mt)
 }
